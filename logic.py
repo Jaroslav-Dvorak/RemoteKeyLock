@@ -1,13 +1,19 @@
 from time import sleep, time
 from threading import Thread
-from sim import Sim, inst_alarm
+# from sim import Sim, inst_alarm
+from control import Control, Alarm
+
+
+inst_alarm = Alarm(buzz_pin=22)
 
 
 class Logic(Thread):
     def __init__(self):
         super().__init__()
-        self.key_locks = {"N2O": Sim("left", "N2O", t_waggle=10, t_autolock=30, t_alarm=60),
-                          "CO2": Sim("right", "CO2", t_waggle=10, t_autolock=30, t_alarm=60)}
+        # self.key_locks = {"N2O": Sim("left", "N2O", t_waggle=10, t_autolock=30, t_alarm=60),
+        #                   "CO2": Sim("right", "CO2", t_waggle=10, t_autolock=30, t_alarm=60)}
+        self.key_locks = {"N2O": Control(coil_pin=6, contact_pin=19, side="left", name="N2O", t_waggle=10, t_autolock=30, t_alarm=60),
+                          "CO2": Control(coil_pin=5, contact_pin=13, side="right", name="CO2", t_waggle=10, t_autolock=30, t_alarm=60)}
 
     def msg_decision(self, msg):
         try:

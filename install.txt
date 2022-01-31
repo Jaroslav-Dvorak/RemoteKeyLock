@@ -1,0 +1,5 @@
+enable remoteGPIO in raspberry pi configuration
+sudo systemctl enable pigpiod
+sudo systemctl start pigpiod
+pip install gpiozero
+pip install pigpio
