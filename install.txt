@@ -3,3 +3,12 @@ sudo systemctl enable pigpiod
 sudo systemctl start pigpiod
 pip install gpiozero
 pip install pigpio
+
+autostart:
+mkdir /home/pi/.config/autostart
+nano /home/pi/.config/autostart/RemoteKeyLock.desktop
+
+[Desktop Entry]
+Type=Application
+Name=RemoteKeyLock
+Exec=lxterminal --working-directory=/home/pi/Py/RemoteKeyLock/ -e "python3 main.py"

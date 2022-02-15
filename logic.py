@@ -9,10 +9,8 @@ inst_alarm = Alarm(buzz_pin=22)
 class Logic(Thread):
     def __init__(self):
         super().__init__()
-        # self.key_locks = {"N2O": Sim("left", "N2O", t_waggle=10, t_autolock=30, t_alarm=60),
-        #                   "CO2": Sim("right", "CO2", t_waggle=10, t_autolock=30, t_alarm=60)}
-        self.key_locks = {"n2o": Control(coil_pin=6, contact_pin=19, side="left", name="N2O", t_waggle=10, t_autolock=30, t_alarm=60),
-                          "co2": Control(coil_pin=5, contact_pin=13, side="right", name="CO2", t_waggle=10, t_autolock=30, t_alarm=60)}
+        self.key_locks = {"n2o": Control(coil_pin=6, contact_pin=19, side="left", name="N2O", t_waggle=10, t_autolock=1800, t_alarm=21600),
+                          "co2": Control(coil_pin=5, contact_pin=13, side="right", name="CO2", t_waggle=10, t_autolock=1800, t_alarm=21600)}
 
     def msg_decision(self, msg):
         msg = msg.split(",")
@@ -20,8 +18,11 @@ class Logic(Thread):
         if len(msg) == 2:
             msg, name = msg[0], msg[1]
             name = name.strip()
-        else:
+        elif len(msg) == 1:
             msg = msg[0]
+        else:
+            print("Uknown command: Bad message format!")
+            return
         msg = msg.lower()
         try:
             self.key_locks[msg].key_unlock()
