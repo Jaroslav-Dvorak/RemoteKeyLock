@@ -18,6 +18,6 @@ class Handler(BaseRequestHandler):
             sleep(0.1)
 
 
-Server_inst = TCPServer(('', 2000), Handler)
+Server_inst = TCPServer(('', 10000), Handler)
 Server_thread = Thread(target=Server_inst.serve_forever)
 Server_thread.daemon = True
