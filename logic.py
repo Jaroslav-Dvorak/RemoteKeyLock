@@ -19,7 +19,7 @@ class Logic(Thread):
             msg, name = msg[0], msg[1]
             name = name.strip()
         elif len(msg) == 1:
-            msg = msg[0]
+            msg = msg[0].strip()
         else:
             print("Uknown command: Bad message format!")
             return
