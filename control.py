@@ -19,6 +19,8 @@ class Control:
 
         self.coil = LED(coil_pin, pin_factory=pin_factory)
         self.contact = Button(contact_pin, pin_factory=pin_factory, pull_up=False)
+        self.contact.when_pressed = self.key_present
+        self.contact.when_released = self.key_present
 
         self.key_taken = None
         self.key_present()
@@ -27,10 +29,11 @@ class Control:
 
     def key_present(self):
         self.key_taken = False
-        return
         if not self.contact.is_pressed:
+            print(self.name, "taken")
             self.key_taken = time()
         else:
+            print(self.name, "returned")
             self.key_taken = False
 
     def key_lock(self):
@@ -45,7 +48,6 @@ class Control:
 class Alarm:
     def __init__(self, buzz_pin):
         self.buzz = LED(buzz_pin, pin_factory=pin_factory)
-        pass
 
     def command(self, state):
         if state:
