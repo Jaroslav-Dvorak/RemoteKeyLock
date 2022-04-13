@@ -15,6 +15,8 @@ class Handler(BaseRequestHandler):
                     print(e)
                 else:
                     inst_logic.msg_decision(msg)
+            else:
+                break
             sleep(0.1)
 
 
